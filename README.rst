@@ -11,5 +11,6 @@ localflavor.generic.
 Usage
 -----
 
-Just add to INSTALLED_APPS and call `$ ./manage.py l10n_load_data` if you want
-the fixtures loaded for you (you probably do, otherwise, what's the point?)
+Just add 'l10n' to INSTALLED_APPS and call `$ ./manage.py l10n_load_data` if
+you want the fixtures loaded for you (you probably do, otherwise, what's the
+point?)
