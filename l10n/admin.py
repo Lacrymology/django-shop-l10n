@@ -43,6 +43,14 @@ if settings.SHOP_ADDRESS_MODEL == 'l10n.models.Address':
         list_display = (
             'name', 'address', 'address2', 'zip_code', 'city', 'country',
             'user_shipping', 'user_billing')
+        change_form_template = "l10n/admin/change_form.html"
+
+        def get_urls(self):
+            from django.conf.urls.defaults import patterns, include, url
+            urls = super(AddressAdmin, self).get_urls()
+            from l10n.urls import urlpatterns
+            return urlpatterns + urls
+
         class Media:
             js = ("l10n/js/country.area.js",)
 

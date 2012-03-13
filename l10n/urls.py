@@ -1,5 +1,8 @@
 from django.conf.urls.defaults import *
+from l10n.views import CountryAreas
 
-urlpatterns = patterns('',
-    (r'^setlang/$', 'django.views.i18n.set_language', {}, 'satchmo_set_language'),
-)
+urlpatterns = patterns(
+    '',
+    url(r'country/areas/', CountryAreas.as_view(),
+        name='l10n_country_areas'),
+    )
