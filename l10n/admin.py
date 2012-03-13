@@ -1,6 +1,7 @@
-from l10n.models import Country, AdminArea
+from l10n.models import Country, AdminArea, Address
 from django.contrib import admin
 from django.utils.translation import get_language, ugettext_lazy as _
+from django.conf import settings
 
 
 class AdminArea_Inline(admin.TabularInline):
@@ -36,3 +37,13 @@ class CountryOptions(admin.ModelAdmin):
     inlines = [AdminArea_Inline]
 
 admin.site.register(Country, CountryOptions)
+
+if settings.SHOP_ADDRESS_MODEL == 'l10n.models.Address':
+    class AddressAdmin(admin.ModelAdmin):
+        list_display = (
+            'name', 'address', 'address2', 'zip_code', 'city', 'country',
+            'user_shipping', 'user_billing')
+        class Media:
+            js = ("l10n/js/country.area.js",)
+
+    admin.site.register(Address, AddressAdmin)
