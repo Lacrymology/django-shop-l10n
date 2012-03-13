@@ -13,11 +13,4 @@ setup(
     packages=find_packages(),
     provides=['django_shop_l10n', ],
     include_package_data=True,
-    package_data={
-        'l10n': [
-            'bin/*',
-            'fixtures/*',
-            'locale/*',
-        ]
-    },
 )
