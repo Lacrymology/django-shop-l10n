@@ -1,6 +1,6 @@
 django.jQuery(function() {
     var $ = django.jQuery;
-    $("#id_country").change(function() {
+    var $country = $("#id_country").change(function() {
         var $states = $("#id_state").empty();
         $.get(L10N.ajaxUrls.country_areas, { "country_id": $(this).val() }, 
               function(data) {
@@ -11,4 +11,6 @@ django.jQuery(function() {
                   }
               });
     });
+    if($country.val())
+        $country.change();
 });
