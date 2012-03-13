@@ -14,3 +14,9 @@ Usage
 Just add 'l10n' to INSTALLED_APPS and call `$ ./manage.py l10n_load_data` if
 you want the fixtures loaded for you (you probably do, otherwise, what's the
 point?)
+
+An urls file is provided, which adds some utility views. You can either use that
+or add this views yourself, but you need the url to be named the same.
+
+To use the AJAX calls you'll also need to {% include "l10n/headers.html" %} in
+the javascript area in your templates.
