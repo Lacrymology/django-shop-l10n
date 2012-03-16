@@ -38,20 +38,50 @@ class CountryOptions(admin.ModelAdmin):
 
 admin.site.register(Country, CountryOptions)
 
+class CountryAreaAdmin(admin.ModelAdmin):
+    """
+    provides an AJAX-controlled country-area dropdowns
+    """
+    change_form_template = "l10n/admin/change_form.html"
+    country_field = "country"
+    area_field = "area"
+    area_field_required = "true"
+
+    def get_urls(self):
+        from django.conf.urls.defaults import patterns, include, url
+        urls = super(CountryAreaAdmin, self).get_urls()
+        from l10n.urls import urlpatterns
+        return urlpatterns + urls
+
+    def extra_context(self, extra_context):
+        if extra_context is None:
+            extra_context = {}
+        extra_context.update({
+                'country_field': self.country_field,
+                'area_field': self.area_field,
+                'area_field_required': self.area_field_required,
+                })
+        return extra_context
+
+    def add_view(self, *args, **kwargs):
+        extra_context = kwargs.get('extra_context', {})
+        kwargs['extra_context'] = self.extra_context(extra_context)
+        return super(CountryAreaAdmin, self).add_view(*args, **kwargs)
+
+    def change_view(self, *args, **kwargs):
+        extra_context = kwargs.get('extra_context', {})
+        kwargs['extra_context'] = self.extra_context(extra_context)
+        return super(CountryAreaAdmin, self).change_view(*args, **kwargs)
+
+    class Media:
+        js = ("l10n/js/country.area.js",)
+
+
 if settings.SHOP_ADDRESS_MODEL == 'l10n.models.Address':
-    class AddressAdmin(admin.ModelAdmin):
+    class AddressAdmin(CountryAreaAdmin):
+        area_field = "state"
         list_display = (
             'name', 'address', 'address2', 'zip_code', 'city', 'country',
             'user_shipping', 'user_billing')
-        change_form_template = "l10n/admin/change_form.html"
-
-        def get_urls(self):
-            from django.conf.urls.defaults import patterns, include, url
-            urls = super(AddressAdmin, self).get_urls()
-            from l10n.urls import urlpatterns
-            return urlpatterns + urls
-
-        class Media:
-            js = ("l10n/js/country.area.js",)
 
     admin.site.register(Address, AddressAdmin)
