@@ -20,3 +20,10 @@ or add this views yourself, but you need the url to be named the same.
 
 To use the AJAX calls you'll also need to {% include "l10n/headers.html" %} in
 the javascript area in your templates.
+
+Features
+--------
+It ships a django-shop compliant Address class that uses this app as Country and Area model sources. It can be used as is, or serve as an example.
+
+It uses ajax calls in the admin, which filter AdminArea options according to the
+selected Country instance.
