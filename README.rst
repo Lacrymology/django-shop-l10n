@@ -23,7 +23,12 @@ the javascript area in your templates.
 
 Features
 --------
-It ships a django-shop compliant Address class that uses this app as Country and Area model sources. It can be used as is, or serve as an example.
+It ships a django-shop compliant Address class that uses this app as Country and
+Area model sources. Because of an issue when two different Address models exist,
+this model has been made into an abstract model, so if you want to use it as-is,
+please, just inherit from it like:
 
-It uses ajax calls in the admin, which filter AdminArea options according to the
-selected Country instance.
+class Address(l10n.models.Address):
+    pass
+
+A suitable Admin class is provided as well, in `l10n.admin.CountryAreaAdmin`

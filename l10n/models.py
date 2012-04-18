@@ -120,6 +120,7 @@ class Address(models.Model):
     country = models.ForeignKey(Country, verbose_name=_('country'))
 
     class Meta(object):
+        abstract = True
         verbose_name = _('Address')
         verbose_name_plural = _("Addresses")
 
